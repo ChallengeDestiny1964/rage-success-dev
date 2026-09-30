@@ -1,6 +1,5 @@
 import { BrainCircuitIcon, BriefcaseIcon, Building2Icon, MapPinIcon } from "lucide-react";
 import Link from "next/link";
-import { ContactLinks } from "@/components/ContactLinks";
 import { FeaturedWork } from "@/components/FeaturedWork";
 import { HeroVisual } from "@/components/HeroVisual";
 import { TechMarquee } from "@/components/TechMarquee";
@@ -123,42 +122,6 @@ export default function HomePage() {
               <p className="mt-4 text-sm leading-relaxed text-muted">{item.body}</p>
             </article>
           ))}
-        </div>
-      </section>
-
-      <section className="shell py-16 md:py-24">
-        <div className="panel-dark overflow-hidden rounded-[1.85rem]">
-          <div className="grid lg:grid-cols-[1.05fr_0.95fr]">
-            <div className="border-b border-white/10 px-7 py-12 md:px-12 lg:border-b-0 lg:border-r">
-              <p className="mono text-[0.68rem] uppercase tracking-[0.18em] text-[rgba(232,240,246,0.55)]">
-                Next engagement
-              </p>
-              <h2 className="display mt-5 text-4xl text-white md:text-5xl">
-                Ready for production work — <span className="accent-serif">not demos</span>
-              </h2>
-              <p className="mt-5 max-w-md text-sm leading-relaxed text-[rgba(232,240,246,0.68)]">
-                Freelancer.com projects, AI training platforms, and remote product teams. Direct
-                channels only: GitHub, email, phone, LinkedIn.
-              </p>
-              <p className="mono mt-6 text-[0.75rem] text-[rgba(232,240,246,0.5)]">
-                {site.availability}
-              </p>
-              <div className="mt-9 flex flex-wrap gap-3">
-                <Link href="/contact" className="btn btn-light">
-                  Get in touch
-                  <span className="btn-arrow" aria-hidden>
-                    →
-                  </span>
-                </Link>
-                <Link href="/resume" className="btn btn-ghost">
-                  Download resume
-                </Link>
-              </div>
-            </div>
-            <div className="[&_a]:border-white/10 [&_a:hover]:bg-white/5 [&_p.text-accent-deep]:text-[rgba(126,210,214,0.95)] [&_p.text-ink]:text-[#e8f0f6] [&_p.text-muted]:text-[rgba(232,240,246,0.55)]">
-              <ContactLinks compact />
-            </div>
-          </div>
         </div>
       </section>
     </>
