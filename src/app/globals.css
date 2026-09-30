@@ -1311,225 +1311,136 @@ body {
 
 /* ——— Footer ——— */
 @layer components {
-  .footer-slab {
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-    container-type: inline-size;
-    border-radius: 2rem;
-    color: #e8f0f6;
-    background:
-      radial-gradient(ellipse 55% 45% at 85% 0%, rgba(14, 124, 128, 0.28), transparent 70%),
-      radial-gradient(ellipse 45% 50% at 0% 100%, rgba(26, 95, 72, 0.2), transparent 70%),
-      linear-gradient(180deg, #0d1824 0%, #081119 100%);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.07),
-      0 0 0 1px rgba(8, 16, 24, 0.5),
-      0 40px 80px -40px rgba(8, 16, 24, 0.55);
-  }
-
-  .footer-slab::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-    background-size: 64px 64px;
-    mask-image: radial-gradient(ellipse 80% 60% at 70% 0%, #000 10%, transparent 75%);
-  }
-
-  .footer-glow {
-    position: absolute;
-    top: -14rem;
-    right: 8%;
-    z-index: -1;
-    width: 38rem;
-    height: 28rem;
-    border-radius: 9999px;
-    background: radial-gradient(closest-side, rgba(95, 212, 216, 0.22), transparent);
-    filter: blur(20px);
-    pointer-events: none;
-  }
-
-  .footer-label {
-    font-family: var(--font-geist-mono), ui-monospace, monospace;
-    font-size: 0.68rem;
-    font-weight: 500;
-    line-height: 1;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgba(232, 240, 246, 0.42);
-  }
-
   .footer-status {
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
-    padding: 0.45rem 0.85rem 0.45rem 0.7rem;
-    border-radius: 9999px;
     font-size: 0.8rem;
     font-weight: 500;
-    color: rgba(232, 240, 246, 0.85);
-    background: rgba(74, 222, 128, 0.07);
-    box-shadow: inset 0 0 0 1px rgba(74, 222, 128, 0.22);
+    color: var(--ink-soft);
   }
 
-  .footer-email {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1.1rem 1.1rem 1.1rem 1.35rem;
-    border-radius: 1.15rem;
-    background: rgba(255, 255, 255, 0.04);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.06),
-      0 0 0 1px rgba(255, 255, 255, 0.1);
-    transition:
-      background-color 220ms ease,
-      box-shadow 220ms ease;
-  }
-
-  .footer-email:hover {
-    background: rgba(255, 255, 255, 0.06);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.08),
-      0 0 0 1px rgba(126, 210, 214, 0.35);
-  }
-
-  .footer-copy {
+  .footer-mail {
     display: inline-flex;
-    flex-shrink: 0;
     align-items: center;
-    gap: 0.45rem;
-    height: 2.35rem;
-    padding-inline: 0.85rem;
-    border-radius: 0.7rem;
-    font-size: 0.8rem;
+    gap: 0.85rem;
     font-weight: 600;
-    color: #e8f0f6;
-    background: rgba(255, 255, 255, 0.07);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    transition: color 200ms ease;
+  }
+
+  .footer-mail-text {
+    text-decoration-line: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.3em;
+    text-decoration-color: rgba(8, 16, 24, 0.14);
+    transition: text-decoration-color 200ms ease;
+  }
+
+  .footer-mail:hover {
+    color: var(--accent-deep);
+  }
+
+  .footer-mail:hover .footer-mail-text {
+    text-decoration-color: currentColor;
+  }
+
+  .footer-mail-arrow {
+    display: grid;
+    flex-shrink: 0;
+    width: 2.1rem;
+    height: 2.1rem;
+    place-items: center;
+    border-radius: 9999px;
+    color: #fff;
+    background: var(--ink);
+    transition:
+      transform 280ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      background-color 200ms ease;
+  }
+
+  .footer-mail:hover .footer-mail-arrow {
+    transform: rotate(45deg);
+    background: var(--accent-deep);
+  }
+
+  .footer-icon-btn {
+    display: grid;
+    width: 2.4rem;
+    height: 2.4rem;
+    place-items: center;
+    border-radius: 9999px;
+    color: var(--muted);
+    background: rgba(255, 255, 255, 0.55);
+    box-shadow: 0 0 0 1px var(--line);
     cursor: pointer;
     transition:
-      background-color 200ms ease,
       color 200ms ease,
-      box-shadow 200ms ease;
+      background-color 200ms ease,
+      box-shadow 200ms ease,
+      transform 200ms ease;
   }
 
-  .footer-copy:hover {
-    background: rgba(255, 255, 255, 0.13);
-  }
-
-  .footer-copy:focus-visible,
-  .footer-social:focus-visible,
-  .footer-link:focus-visible,
-  .footer-top:focus-visible {
-    outline: 2px solid #7ed2d6;
-    outline-offset: 3px;
-  }
-
-  .footer-copy[data-copied] {
-    color: #0b1520;
-    background: #7ed2d6;
-    box-shadow: 0 0 0 1px #7ed2d6, 0 8px 22px -8px rgba(126, 210, 214, 0.7);
-  }
-
-  .footer-logo {
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14);
-    border-radius: 0.8rem;
-  }
-
-  .footer-social {
-    display: grid;
-    width: 2.6rem;
-    height: 2.6rem;
-    place-items: center;
-    border-radius: 0.8rem;
-    color: rgba(232, 240, 246, 0.75);
-    background: rgba(255, 255, 255, 0.05);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.06),
-      0 0 0 1px rgba(255, 255, 255, 0.1);
-    transition:
-      transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
-      color 220ms ease,
-      background-color 220ms ease,
-      box-shadow 220ms ease;
-  }
-
-  .footer-social:hover {
-    transform: translateY(-3px);
-    color: #0b1520;
+  .footer-icon-btn:hover {
+    color: var(--ink);
     background: #fff;
-    box-shadow: 0 10px 24px -10px rgba(126, 210, 214, 0.65);
+    box-shadow:
+      0 0 0 1px rgba(8, 16, 24, 0.16),
+      0 6px 16px -8px rgba(8, 16, 24, 0.3);
+    transform: translateY(-1px);
+  }
+
+  .footer-icon-btn[data-copied] {
+    color: #fff;
+    background: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent);
   }
 
   .footer-link {
-    color: rgba(232, 240, 246, 0.68);
-    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
-    padding-bottom: 2px;
-    transition:
-      color 200ms ease,
-      background-size 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted);
+    transition: color 180ms ease;
   }
 
   .footer-link:hover {
-    color: #fff;
-    background-size: 100% 1px;
+    color: var(--ink);
   }
 
   .footer-top {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.45rem;
     font-weight: 500;
-    color: rgba(232, 240, 246, 0.75);
-    transition: color 200ms ease;
+    color: var(--muted);
+    transition: color 180ms ease;
+  }
+
+  .footer-top svg {
+    transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
   .footer-top:hover {
-    color: #fff;
+    color: var(--ink);
   }
 
-  .footer-top-icon {
-    display: grid;
-    width: 1.9rem;
-    height: 1.9rem;
-    place-items: center;
+  .footer-top:hover svg {
+    transform: translateY(-2px);
+  }
+
+  .footer-mail:focus-visible,
+  .footer-icon-btn:focus-visible,
+  .footer-link:focus-visible,
+  .footer-top:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 0.4rem;
+  }
+
+  .footer-icon-btn:focus-visible {
     border-radius: 9999px;
-    background: rgba(255, 255, 255, 0.06);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
-    transition:
-      transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
-      background-color 220ms ease,
-      color 220ms ease;
-  }
-
-  .footer-top:hover .footer-top-icon {
-    transform: translateY(-3px);
-    color: #0b1520;
-    background: #7ed2d6;
-  }
-
-  /* Oversized wordmark, cropped by the slab's bottom edge. Sized in cqi so it always spans the slab. */
-  .footer-wordmark {
-    margin: 0 0 -0.2em;
-    padding-inline: 2.5cqi;
-    font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-    font-size: 14.2cqi;
-    font-weight: 650;
-    line-height: 0.9;
-    letter-spacing: -0.065em;
-    white-space: nowrap;
-    text-align: center;
-    color: transparent;
-    background: linear-gradient(180deg, rgba(232, 240, 246, 0.2) 0%, rgba(232, 240, 246, 0.02) 78%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    user-select: none;
-    pointer-events: none;
   }
 }
 
@@ -1555,11 +1466,13 @@ body {
   .tech-chip-icon,
   .career-card,
   .career-arrow,
-  .footer-social,
+  .footer-mail,
+  .footer-mail-text,
+  .footer-mail-arrow,
+  .footer-icon-btn,
   .footer-link,
-  .footer-top-icon,
-  .footer-email,
-  .footer-copy {
+  .footer-top,
+  .footer-top svg {
     transition: none;
   }
 

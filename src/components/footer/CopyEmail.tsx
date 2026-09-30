@@ -22,30 +22,24 @@ export function CopyEmail({ email }: { email: string }) {
   }
 
   return (
-    <div className="footer-email">
-      <a href={`mailto:${email}`} className="min-w-0 flex-1">
-        <span className="footer-label block">Email me directly</span>
-        <span className="mono mt-1.5 block truncate text-[0.875rem] text-white sm:text-base">
-          {email}
-        </span>
-      </a>
+    <>
       <button
         type="button"
         onClick={copy}
-        className="footer-copy"
+        className="footer-icon-btn"
         data-copied={copied || undefined}
         aria-label={copied ? "Email address copied" : "Copy email address"}
+        title={copied ? "Copied" : "Copy email"}
       >
         {copied ? (
           <CheckIcon className="h-4 w-4" strokeWidth={2.2} aria-hidden />
         ) : (
-          <CopyIcon className="h-4 w-4" strokeWidth={1.9} aria-hidden />
+          <CopyIcon className="h-4 w-4" strokeWidth={1.8} aria-hidden />
         )}
-        <span className="hidden sm:inline">{copied ? "Copied" : "Copy"}</span>
       </button>
       <span className="sr-only" aria-live="polite">
         {copied ? "Email address copied to clipboard" : ""}
       </span>
-    </div>
+    </>
   );
 }
