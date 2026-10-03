@@ -1,10 +1,11 @@
 import { BrainCircuitIcon, BriefcaseIcon, Building2Icon, MapPinIcon } from "lucide-react";
 import Link from "next/link";
-import { FeaturedWork } from "@/components/FeaturedWork";
 import { HeroVisual } from "@/components/HeroVisual";
+import { categoryIcons } from "@/components/projects/categoryIcons";
+import { ProjectTile } from "@/components/projects/ProjectTile";
 import { TechMarquee } from "@/components/TechMarquee";
 import { TrackRecord } from "@/components/TrackRecord";
-import { featuredProjects } from "@/data/projects";
+import { categories, featuredProjects, projects, projectsIn } from "@/data/projects";
 import { focusAreas } from "@/data/skills";
 import { site } from "@/data/site";
 
@@ -84,22 +85,48 @@ export default function HomePage() {
       <TechMarquee />
 
       <section className="shell py-20 md:py-28">
-        <div className="mb-6 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <p className="eyebrow">Selected work</p>
             <h2 className="display mt-4 text-4xl text-ink md:text-5xl">
               Products, shown <span className="accent-serif">running</span>
             </h2>
             <p className="lede mt-4 max-w-xl">
-              Agents, evaluation loops, and full-stack products, each on its first running screen.
+              AI agents, web platforms, mobile apps and bots, each on its live first screen. Click
+              any preview to open the product.
             </p>
           </div>
           <Link href="/projects" className="link-arrow shrink-0">
-            View all projects
+            View all {projects.length} projects
             <span aria-hidden>→</span>
           </Link>
         </div>
-        <FeaturedWork projects={featuredProjects} />
+
+        <ul className="mt-8 flex flex-wrap gap-2">
+          {categories.map((category) => {
+            const Icon = categoryIcons[category.id];
+            return (
+              <li key={category.id}>
+                <Link
+                  href={`/projects#${category.id}`}
+                  className="inline-flex items-center gap-2 rounded-full bg-white/70 px-3.5 py-1.5 text-[0.82rem] font-medium text-ink-soft shadow-[inset_0_0_0_1px_rgba(8,16,24,0.08)] transition hover:bg-white hover:text-ink"
+                >
+                  <Icon className="h-3.5 w-3.5 text-accent-deep" strokeWidth={2.25} aria-hidden />
+                  {category.label}
+                  <span className="mono text-[0.68rem] text-muted">
+                    {projectsIn(category.id).length}
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+
+        <div className="mt-12 grid gap-x-8 gap-y-14 md:grid-cols-2 lg:gap-x-10">
+          {featuredProjects.map((project) => (
+            <ProjectTile key={project.slug} project={project} />
+          ))}
+        </div>
       </section>
 
       <section className="shell pb-8 pt-4 md:pb-12">

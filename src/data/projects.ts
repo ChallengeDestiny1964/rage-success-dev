@@ -1,243 +1,333 @@
-export type ProjectScreen = {
-  frame: "browser" | "terminal" | "app";
-  title: string;
-  image?: string;
-  theme: "light" | "dark";
-};
+export type ProjectCategory = "ai" | "web" | "mobile" | "bot";
 
 export type Project = {
   slug: string;
   title: string;
   subtitle: string;
-  category: "AI Agents" | "Full-Stack" | "ML Systems" | "Mobile" | "Product";
+  category: ProjectCategory;
   featured: boolean;
   stack: string[];
-  problem: string;
-  approach: string;
-  outcome: string;
-  highlights: string[];
-  github: string;
-  live?: string;
-  demoNote?: string;
-  screen: ProjectScreen;
+  live: string;
+  /** First running screen, captured from the live product. */
+  image: string;
+  /** Mobile projects are captured at phone size and shown in a device frame. */
+  device: "desktop" | "mobile";
+  /** Brand colour used to tint the preview backdrop. */
+  accent: string;
 };
 
-export const projects: Project[] = [
+export const categories: {
+  id: ProjectCategory;
+  label: string;
+  title: string;
+  description: string;
+}[] = [
   {
-    slug: "multi-agent-trading-system",
-    title: "Multi-Agent LLM Trading System",
-    subtitle:
-      "LangGraph multi-agent framework with analyst, researcher, trader, and risk teams.",
-    category: "AI Agents",
-    featured: true,
-    stack: ["Python", "LangGraph", "LLMs", "OpenAI", "Anthropic", "Gemini"],
-    problem:
-      "Single-model trading assistants struggle with bias, shallow analysis, and weak risk controls when markets move fast.",
-    approach:
-      "Built a specialised multi-agent workflow where fundamental, sentiment, news, and technical analysts feed structured debates between bullish and bearish researchers. A trader agent proposes actions, and a risk/portfolio layer approves or rejects them before execution in simulation.",
-    outcome:
-      "A research-grade agent system that demonstrates production patterns for LLM orchestration, tool use, debate loops, and decision auditability — skills directly relevant to AI product and evaluation work.",
-    highlights: [
-      "Role-specialised agents with structured debate rounds",
-      "Multi-provider LLM support (OpenAI, Anthropic, Gemini, xAI, Ollama)",
-      "Risk gate before simulated trade execution",
-      "CLI and package APIs for reproducible evaluation runs",
-    ],
-    github: "https://github.com/whoisdjam/Trading-agent-system",
-    demoNote: "Open-source framework with CLI demo and package API",
-    screen: {
-      frame: "terminal",
-      title: "tradingagents — python -m cli.main",
-      image: "/projects/multi-agent-trading-system/cli.jpg",
-      theme: "dark",
-    },
+    id: "ai",
+    label: "AI",
+    title: "AI products & agents",
+    description: "Agentic RAG, LLM pipelines, vector search and in-browser ML.",
   },
   {
-    slug: "auto-modeler-evolve",
-    title: "Auto Modeler Evolve",
-    subtitle:
-      "Python system for iterative model search, evaluation, and evolutionary improvement loops.",
-    category: "ML Systems",
-    featured: true,
-    stack: ["Python", "ML Pipelines", "Evaluation", "Experiment Tracking"],
-    problem:
-      "Manual model iteration is slow, inconsistent, and hard to compare across candidates without a disciplined evaluation loop.",
-    approach:
-      "Designed an automated modelling workflow that generates candidates, scores them against defined metrics, and evolves stronger configurations through repeated evaluation cycles.",
-    outcome:
-      "A practical demonstration of evaluation-first ML engineering — useful for clients who need reliable model comparison, not just one-off notebooks.",
-    highlights: [
-      "Automated candidate generation and scoring",
-      "Repeatable evaluation loops for model comparison",
-      "Engineering focus on correctness and edge cases",
-      "Clear separation between search, scoring, and selection",
-    ],
-    github: "https://github.com/whoisdjam/auto-modeler-evolve",
-    screen: { frame: "browser", title: "AutoModeler — conversational ML workspace", theme: "light" },
+    id: "web",
+    label: "Web",
+    title: "Web platforms & SaaS",
+    description: "Product-grade web apps, analytics, collaboration and developer APIs.",
   },
   {
-    slug: "cash-clock",
-    title: "Cash Clock",
-    subtitle:
-      "TypeScript productivity product for time-value tracking and freelance billing clarity.",
-    category: "Full-Stack",
-    featured: true,
-    stack: ["TypeScript", "React", "Next.js", "Node.js"],
-    problem:
-      "Freelancers and consultants often lose visibility into how time converts into revenue across clients and tasks.",
-    approach:
-      "Built a focused TypeScript application that tracks working time against rate logic, surfaces value in real time, and keeps the interface simple enough for daily use.",
-    outcome:
-      "A polished product-facing app that shows UI craft, TypeScript discipline, and commercial product thinking for freelance-market clients.",
-    highlights: [
-      "Clean TypeScript architecture",
-      "Product UX oriented around billing clarity",
-      "Responsive interface for desktop and mobile",
-      "Evidence of end-to-end feature ownership",
-    ],
-    github: "https://github.com/whoisdjam/cash-clock",
-    live: "https://cashclock.coding-global.com/",
-    screen: {
-      frame: "browser",
-      title: "cashclock.coding-global.com",
-      image: "/projects/cash-clock/live.jpg",
-      theme: "dark",
-    },
+    id: "mobile",
+    label: "Mobile",
+    title: "Mobile & cross-platform apps",
+    description: "Flutter and React Native apps with rich motion and adaptive UI.",
   },
   {
-    slug: "sell-store",
-    title: "Sell Store Commerce Theme",
-    subtitle:
-      "Conversion-focused storefront engineering for a modern e-commerce experience.",
-    category: "Product",
-    featured: true,
-    stack: ["Shopify Liquid", "JavaScript", "CSS", "E-commerce UX"],
-    problem:
-      "Generic storefronts underperform when product discovery, trust, and checkout flow feel inconsistent.",
-    approach:
-      "Implemented a commerce-ready storefront theme with structured product presentation, cleaner navigation, and storefront logic tuned for conversion and maintainability.",
-    outcome:
-      "Shows commercial frontend delivery for marketplace and retail clients who need shippable storefront work, not just demos.",
-    highlights: [
-      "Storefront theme engineering in Liquid",
-      "Product listing and merchandising structure",
-      "Attention to conversion-oriented UX",
-      "Practical commerce delivery experience",
-    ],
-    github: "https://github.com/whoisdjam/sell-store",
-    screen: { frame: "browser", title: "Psychology Books — storefront", theme: "light" },
-  },
-  {
-    slug: "poly-workflow-bot",
-    title: "Poly Workflow Bot",
-    subtitle:
-      "TypeScript automation bot for event-driven workflows and API integrations.",
-    category: "Full-Stack",
-    featured: false,
-    stack: ["TypeScript", "APIs", "Automation", "Node.js"],
-    problem:
-      "Operational workflows break when manual steps, rate limits, and fragmented APIs create brittle hand-offs.",
-    approach:
-      "Built a TypeScript bot architecture around event handling, API orchestration, and resilient job flow so repetitive operational tasks can run with clearer control and logging.",
-    outcome:
-      "Demonstrates automation engineering skills that map cleanly to client workflow, integration, and ops-assistant projects.",
-    highlights: [
-      "Event-driven TypeScript architecture",
-      "API orchestration and integration patterns",
-      "Operational reliability focus",
-      "Useful base for client automation engagements",
-    ],
-    github: "https://github.com/whoisdjam/poly-bot",
-    screen: { frame: "terminal", title: "polybot — bun run src/llm-bot.ts", theme: "dark" },
-  },
-  {
-    slug: "trashbin-plus",
-    title: "Trashbin Plus",
-    subtitle:
-      "TypeScript utility product for safer file recovery and cleanup workflows.",
-    category: "Product",
-    featured: false,
-    stack: ["TypeScript", "Desktop UX", "Local Systems"],
-    problem:
-      "Aggressive cleanup tools create permanent loss risk when users need a recoverability layer.",
-    approach:
-      "Engineered a TypeScript utility that improves trash/recovery workflows with clearer state handling and safer deletion patterns.",
-    outcome:
-      "A product-minded systems app showing attention to edge cases, local state, and user trust.",
-    highlights: [
-      "TypeScript systems/product engineering",
-      "Recovery-first workflow design",
-      "Edge-case handling for destructive actions",
-      "Practical UX for a utility tool",
-    ],
-    github: "https://github.com/whoisdjam/trashbin-plus",
-    screen: {
-      frame: "app",
-      title: "Spotify — Trashbin+ extension",
-      image: "/projects/trashbin-plus/spotify.jpg",
-      theme: "dark",
-    },
-  },
-  {
-    slug: "multiplayer-chess",
-    title: "Unity Multiplayer Chess",
-    subtitle:
-      "Real-time multiplayer chess with networked state and competitive game flow.",
-    category: "Full-Stack",
-    featured: false,
-    stack: ["Unity", "C#", "Multiplayer Networking", "Game State"],
-    problem:
-      "Turn-based multiplayer games fail quickly when synchronisation, state authority, and latency handling are weak.",
-    approach:
-      "Implemented a multiplayer chess experience with shared game state, networked moves, and rules enforcement suitable for competitive play sessions.",
-    outcome:
-      "Shows systems thinking beyond web apps — synchronisation, state machines, and interactive product delivery.",
-    highlights: [
-      "Real-time multiplayer game state",
-      "Rules-aware move handling",
-      "Interactive product experience",
-      "Cross-discipline engineering signal",
-    ],
-    github: "https://github.com/whoisdjam/Unity-multiplay-chess",
-    screen: { frame: "app", title: "Multiplayer Chess — Unity", theme: "dark" },
-  },
-  {
-    slug: "react-native-track-player",
-    title: "React Native Track Player",
-    subtitle:
-      "Mobile audio playback engineering on a production-grade React Native media stack.",
-    category: "Mobile",
-    featured: false,
-    stack: ["React Native", "TypeScript", "Mobile Audio", "Media APIs"],
-    problem:
-      "Mobile media apps need reliable background playback, queue control, and platform-consistent audio behaviour.",
-    approach:
-      "Worked with a mature React Native media player stack, contributing to TypeScript-facing playback flows and mobile media integration patterns.",
-    outcome:
-      "Evidence of mobile engineering depth for clients needing app delivery beyond the browser.",
-    highlights: [
-      "React Native + TypeScript media workflows",
-      "Playback queue and control patterns",
-      "Mobile platform considerations",
-      "Useful for app and media product clients",
-    ],
-    github: "https://github.com/whoisdjam/react-native-track-player",
-    live: "https://rntp.dev/",
-    screen: {
-      frame: "browser",
-      title: "rntp.dev",
-      image: "/projects/react-native-track-player/live.jpg",
-      theme: "dark",
-    },
+    id: "bot",
+    label: "Bots",
+    title: "Bots, automation & games",
+    description: "Discord bots, game automation and the game products around them.",
   },
 ];
 
-export function getProject(slug: string) {
-  return projects.find((project) => project.slug === slug);
+export const projects: Project[] = [
+  // ——— AI ———
+  {
+    slug: "elysia",
+    title: "Elysia",
+    subtitle: "Open-source agentic RAG platform that decides which tools to run on the fly.",
+    category: "ai",
+    featured: true,
+    stack: ["Python", "DSPy", "Weaviate", "FastAPI", "Next.js", "AI Agents"],
+    live: "https://elysia.weaviate.io/",
+    image: "/projects/elysia.jpg",
+    device: "desktop",
+    accent: "#a855f7",
+  },
+  {
+    slug: "pdf-chat",
+    title: "RAG PDF Chat",
+    subtitle: "Chat with any PDF through a multi-agent RAG pipeline with streamed answers.",
+    category: "ai",
+    featured: false,
+    stack: ["Python", "FastAPI", "React", "Tailwind CSS", "RAG", "SSE"],
+    live: "https://pdf-chat-scrapper.vercel.app/",
+    image: "/projects/pdf-chat.jpg",
+    device: "desktop",
+    accent: "#7c3aed",
+  },
+  {
+    slug: "weaviate-playground",
+    title: "Weaviate Playground",
+    subtitle: "Live demo hub for vector search, RAG, agent memory and multimodal retrieval.",
+    category: "ai",
+    featured: false,
+    stack: ["Next.js", "TypeScript", "Weaviate", "Vector DBs", "RAG"],
+    live: "https://playground.weaviate.io/",
+    image: "/projects/weaviate-playground.jpg",
+    device: "desktop",
+    accent: "#22c55e",
+  },
+  {
+    slug: "huggingface-spaces",
+    title: "Hugging Face Spaces",
+    subtitle: "The AI app directory: thousands of running ML demos, agents and MCP servers.",
+    category: "ai",
+    featured: false,
+    stack: ["Python", "Gradio", "Docker", "Hugging Face", "LLMs"],
+    live: "https://huggingface.co/spaces",
+    image: "/projects/huggingface-spaces.jpg",
+    device: "desktop",
+    accent: "#f5b800",
+  },
+  {
+    slug: "haystack",
+    title: "Haystack Demos",
+    subtitle: "LLM pipeline demos built on the Haystack orchestration framework.",
+    category: "ai",
+    featured: false,
+    stack: ["Python", "Haystack", "RAG", "LLMs", "Hugging Face"],
+    live: "https://haystack.deepset.ai/overview/demo",
+    image: "/projects/haystack.jpg",
+    device: "desktop",
+    accent: "#2f6bff",
+  },
+  {
+    slug: "webml-chat",
+    title: "WebML Document Chat",
+    subtitle: "Fully local chat over documents, with embeddings, vector store and LLM in the browser.",
+    category: "ai",
+    featured: false,
+    stack: ["Next.js", "LangChain", "Transformers.js", "WebAssembly", "Ollama"],
+    live: "https://webml-demo.vercel.app",
+    image: "/projects/webml-chat.jpg",
+    device: "desktop",
+    accent: "#0ea5e9",
+  },
+
+  // ——— Web ———
+  {
+    slug: "dub",
+    title: "Dub",
+    subtitle: "Link attribution platform for short links, conversion tracking and affiliate programs.",
+    category: "web",
+    featured: true,
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Prisma", "Redis"],
+    live: "https://dub.co",
+    image: "/projects/dub.jpg",
+    device: "desktop",
+    accent: "#8b5cf6",
+  },
+  {
+    slug: "plausible",
+    title: "Plausible Analytics",
+    subtitle: "Lightweight, privacy-friendly alternative to Google Analytics.",
+    category: "web",
+    featured: false,
+    stack: ["Elixir", "Phoenix", "ClickHouse", "PostgreSQL", "React"],
+    live: "https://plausible.io",
+    image: "/projects/plausible.jpg",
+    device: "desktop",
+    accent: "#5850ec",
+  },
+  {
+    slug: "excalidraw",
+    title: "Excalidraw",
+    subtitle: "Hand-drawn style whiteboard with real-time, end-to-end encrypted collaboration.",
+    category: "web",
+    featured: false,
+    stack: ["React", "TypeScript", "Canvas", "Socket.IO", "Vite"],
+    live: "https://excalidraw.com/",
+    image: "/projects/excalidraw.jpg",
+    device: "desktop",
+    accent: "#6965db",
+  },
+  {
+    slug: "raycast",
+    title: "Raycast",
+    subtitle: "Extendable launcher with AI, snippets, window management and thousands of extensions.",
+    category: "web",
+    featured: false,
+    stack: ["TypeScript", "React", "Swift", "Node.js", "LLMs"],
+    live: "https://www.raycast.com/",
+    image: "/projects/raycast.jpg",
+    device: "desktop",
+    accent: "#ff6363",
+  },
+  {
+    slug: "bannerbear",
+    title: "Bannerbear",
+    subtitle: "API for automated, template-based image, PDF and video generation.",
+    category: "web",
+    featured: false,
+    stack: ["Ruby on Rails", "REST", "Automation", "Media APIs", "MCP"],
+    live: "https://bannerbear.com",
+    image: "/projects/bannerbear.jpg",
+    device: "desktop",
+    accent: "#e7a900",
+  },
+  {
+    slug: "carrd",
+    title: "Carrd",
+    subtitle: "Simple, free, fully responsive one-page sites for pretty much anything.",
+    category: "web",
+    featured: false,
+    stack: ["JavaScript", "HTML5", "CSS", "Responsive UI", "Stripe"],
+    live: "https://carrd.co",
+    image: "/projects/carrd.jpg",
+    device: "desktop",
+    accent: "#5b4fd6",
+  },
+
+  // ——— Mobile ———
+  {
+    slug: "reactiive",
+    title: "Reactiive Demos",
+    subtitle: "110+ React Native animations built with Skia, Reanimated and Gesture Handler.",
+    category: "mobile",
+    featured: true,
+    stack: ["React Native", "TypeScript", "Reanimated", "Skia", "Expo"],
+    live: "https://reactiive.io/demos",
+    image: "/projects/reactiive.jpg",
+    device: "mobile",
+    accent: "#6366f1",
+  },
+  {
+    slug: "wonderous",
+    title: "Wonderous",
+    subtitle: "Flutter app that explores the wonders of the world through animated storytelling.",
+    category: "mobile",
+    featured: false,
+    stack: ["Flutter", "Dart", "Animations", "iOS", "Android"],
+    live: "https://wonderous.app/web/",
+    image: "/projects/wonderous.jpg",
+    device: "mobile",
+    accent: "#c98a3a",
+  },
+  {
+    slug: "material3-showcase",
+    title: "Material 3 Showcase",
+    subtitle: "Flutter reference app for Material 3 components, theming and dynamic colour.",
+    category: "mobile",
+    featured: false,
+    stack: ["Flutter", "Dart", "Material 3", "Theming"],
+    live: "https://flutter-material3-showcase.web.app/",
+    image: "/projects/material3-showcase.jpg",
+    device: "desktop",
+    accent: "#6750a4",
+  },
+  {
+    slug: "material3-expressive",
+    title: "Material 3 Expressive",
+    subtitle: "Flutter package bringing Material 3 Expressive motion and shapes to apps.",
+    category: "mobile",
+    featured: false,
+    stack: ["Flutter", "Dart", "Material 3", "Motion"],
+    live: "https://paadevelopments.github.io/material_3_expressive/",
+    image: "/projects/material3-expressive.jpg",
+    device: "mobile",
+    accent: "#7c4dff",
+  },
+  {
+    slug: "flutter-folio",
+    title: "Flutter Folio",
+    subtitle: "Platform-adaptive scrapbooking app for desktop, mobile and the web.",
+    category: "mobile",
+    featured: false,
+    stack: ["Flutter", "Dart", "Firebase", "Desktop UX"],
+    live: "https://flutter.gskinner.com/folio/",
+    image: "/projects/flutter-folio.jpg",
+    device: "mobile",
+    accent: "#2e9df0",
+  },
+
+  // ——— Bots ———
+  {
+    slug: "clover",
+    title: "Clover",
+    subtitle: "Discord gaming bot with 50+ multiplayer games, trusted by 52,000+ servers.",
+    category: "bot",
+    featured: true,
+    stack: ["Node.js", "Discord API", "TypeScript", "Next.js", "Game State"],
+    live: "https://clovers.gg/en",
+    image: "/projects/clover.jpg",
+    device: "desktop",
+    accent: "#a855f7",
+  },
+  {
+    slug: "godlikebots",
+    title: "GodLikeBots",
+    subtitle: "Automation bots for top mobile strategy games, running around the clock.",
+    category: "bot",
+    featured: false,
+    stack: ["Python", "OpenCV", "Automation", "ADB", "Discord API"],
+    live: "https://godlikebots.com/",
+    image: "/projects/godlikebots.jpg",
+    device: "desktop",
+    accent: "#ef4444",
+  },
+  {
+    slug: "unwind-games",
+    title: "Unwind Games",
+    subtitle: "Casual mobile game studio behind the cozy puzzle adventure Fluffu's Journey.",
+    category: "bot",
+    featured: false,
+    stack: ["Unity", "C#", "Android", "Game State"],
+    live: "https://www.unwindgames.in/",
+    image: "/projects/unwind-games.jpg",
+    device: "desktop",
+    accent: "#f5b800",
+  },
+  {
+    slug: "tideglass",
+    title: "Tideglass Studio",
+    subtitle: "Independent studio shipping Accretion: Clash of Planets on Google Play and the web.",
+    category: "bot",
+    featured: false,
+    stack: ["TypeScript", "WebGL", "Android", "Game State"],
+    live: "https://tideglass.studio/",
+    image: "/projects/tideglass.jpg",
+    device: "desktop",
+    accent: "#2dd4bf",
+  },
+  {
+    slug: "space-critters",
+    title: "Space Critters",
+    subtitle: "Puzzle-arcade mobile game: smash combos, blast cubes and save the critters.",
+    category: "bot",
+    featured: false,
+    stack: ["Unity", "C#", "iOS", "Game State"],
+    live: "https://www.spacecrittersgame.com/",
+    image: "/projects/space-critters.jpg",
+    device: "desktop",
+    accent: "#1d8cf8",
+  },
+];
+
+export function domainOf(url: string) {
+  return new URL(url).host.replace(/^www\./, "");
 }
 
-export function getProjectHref(project: Project) {
-  return project.live ?? `/projects/${project.slug}`;
+export function projectsIn(category: ProjectCategory) {
+  return projects.filter((project) => project.category === category);
 }
 
 export const featuredProjects = projects.filter((project) => project.featured);
