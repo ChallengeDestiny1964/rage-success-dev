@@ -1106,44 +1106,33 @@ body {
     aspect-ratio: 16 / 10;
     overflow: hidden;
     isolation: isolate;
-    container-type: inline-size;
     border-radius: 1.5rem;
-    background:
-      radial-gradient(
-        ellipse 75% 65% at 50% 0%,
-        color-mix(in srgb, var(--tint) 32%, transparent),
-        transparent 72%
-      ),
-      radial-gradient(
-        ellipse 60% 50% at 100% 100%,
-        color-mix(in srgb, var(--tint) 14%, transparent),
-        transparent 70%
-      ),
-      linear-gradient(180deg, color-mix(in srgb, var(--tint) 10%, #f5f7fa), #eef2f5);
+    background: oklch(from var(--tint) 0.2 calc(c * 0.3) h);
     box-shadow:
-      inset 0 0 0 1px color-mix(in srgb, var(--tint) 16%, rgba(8, 16, 24, 0.07)),
-      0 1px 2px rgba(8, 16, 24, 0.04);
-    transition: box-shadow 600ms var(--ease);
+      0 0 0 1px rgba(8, 16, 24, 0.08),
+      0 2px 6px -2px rgba(8, 16, 24, 0.12),
+      0 24px 48px -30px rgba(8, 16, 24, 0.45);
+    transition:
+      box-shadow 600ms var(--ease),
+      transform 600ms var(--ease);
   }
 
-  .preview::before {
+  .preview::after {
     content: "";
     position: absolute;
     inset: 0;
-    z-index: -1;
-    background-image:
-      linear-gradient(rgba(8, 16, 24, 0.055) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(8, 16, 24, 0.055) 1px, transparent 1px);
-    background-size: 28px 28px;
-    background-position: center top;
-    mask-image: radial-gradient(ellipse 85% 75% at 50% 15%, black, transparent 78%);
+    z-index: 1;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
   }
 
   .project-tile:hover .preview {
+    transform: translateY(-4px);
     box-shadow:
-      inset 0 0 0 1px color-mix(in srgb, var(--tint) 34%, rgba(8, 16, 24, 0.07)),
-      0 2px 4px rgba(8, 16, 24, 0.04),
-      0 30px 60px -32px color-mix(in srgb, var(--tint) 60%, transparent);
+      0 0 0 1px color-mix(in srgb, var(--tint) 40%, transparent),
+      0 6px 14px -6px rgba(8, 16, 24, 0.2),
+      0 40px 70px -34px color-mix(in srgb, var(--tint) 75%, rgba(8, 16, 24, 0.6));
   }
 
   .project-tile:has(.project-title-link:focus-visible) .preview {
@@ -1151,116 +1140,8 @@ body {
     outline-offset: 4px;
   }
 
-  .preview-browser {
-    position: absolute;
-    inset: 8% 6% -6%;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    border-radius: 0.85rem 0.85rem 0 0;
-    background: #fff;
-    box-shadow:
-      0 0 0 1px rgba(8, 16, 24, 0.1),
-      0 10px 24px -12px rgba(8, 16, 24, 0.28),
-      0 34px 64px -28px color-mix(in srgb, var(--tint) 65%, rgba(8, 16, 24, 0.5));
-    transition: transform 700ms var(--ease);
-  }
-
-  .preview-bar {
-    display: flex;
-    flex-shrink: 0;
-    align-items: center;
-    gap: 0.75rem;
-    height: 1.9rem;
-    padding: 0 0.75rem;
-    border-bottom: 1px solid rgba(8, 16, 24, 0.07);
-    background: #f6f8fa;
-  }
-
-  .preview-dots {
-    display: flex;
-    gap: 0.3rem;
-  }
-
-  .preview-dots i {
-    width: 0.45rem;
-    height: 0.45rem;
-    border-radius: 9999px;
-    background: #ff5f57;
-  }
-
-  .preview-dots i:nth-child(2) {
-    background: #febc2e;
-  }
-
-  .preview-dots i:nth-child(3) {
-    background: #28c840;
-  }
-
-  .preview-url {
-    display: flex;
-    min-width: 0;
-    max-width: 62%;
-    align-items: center;
-    gap: 0.35rem;
-    margin-inline: auto;
-    padding: 0.18rem 0.65rem;
-    border-radius: 0.45rem;
-    background: #fff;
-    box-shadow: inset 0 0 0 1px rgba(8, 16, 24, 0.08);
-    font-family: var(--font-geist-mono), ui-monospace, monospace;
-    font-size: 0.62rem;
-    color: var(--ink-soft);
-  }
-
-  .preview-bar-spacer {
-    width: 1.95rem;
-  }
-
-  .preview-screen {
-    position: relative;
-    flex: 1;
-    overflow: hidden;
-  }
-
   .preview-shot {
     transition: transform 1400ms var(--ease);
-  }
-
-  .preview-phone {
-    position: absolute;
-    top: 8%;
-    left: 50%;
-    width: 29%;
-    aspect-ratio: 390 / 844;
-    padding: 1.6cqi;
-    border-radius: 6.4cqi;
-    background: linear-gradient(160deg, #2a3038, #0b0f14 40%);
-    box-shadow:
-      inset 0 0 0 1px rgba(255, 255, 255, 0.12),
-      0 0 0 1px rgba(8, 16, 24, 0.35),
-      0 14px 28px -14px rgba(8, 16, 24, 0.4),
-      0 40px 70px -30px color-mix(in srgb, var(--tint) 70%, rgba(8, 16, 24, 0.5));
-    transform: translateX(-50%);
-    transition: transform 700ms var(--ease);
-  }
-
-  .preview-phone .preview-screen {
-    height: 100%;
-    border-radius: 5cqi;
-    background: #000;
-  }
-
-  .preview-island {
-    position: absolute;
-    top: 3.2cqi;
-    left: 50%;
-    z-index: 1;
-    width: 9cqi;
-    height: 2.6cqi;
-    border-radius: 9999px;
-    background: #000;
-    transform: translateX(-50%);
   }
 
   .preview-open {
@@ -1273,12 +1154,12 @@ body {
     gap: 0.4rem;
     padding: 0.5rem 0.85rem 0.5rem 1rem;
     border-radius: 9999px;
-    background: rgba(8, 16, 24, 0.86);
+    background: rgba(255, 255, 255, 0.94);
     backdrop-filter: blur(10px);
-    box-shadow: 0 10px 24px -10px rgba(8, 16, 24, 0.5);
+    box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.55);
     font-size: 0.78rem;
     font-weight: 600;
-    color: #fff;
+    color: var(--ink);
     opacity: 0;
     transform: translateY(8px);
     transition:
@@ -1286,18 +1167,8 @@ body {
       transform 500ms var(--ease);
   }
 
-  .project-tile:hover .preview .preview-browser,
-  .project-tile:has(.project-title-link:focus-visible) .preview .preview-browser {
-    transform: translateY(-8px);
-  }
-
-  .project-tile:hover .preview .preview-phone,
-  .project-tile:has(.project-title-link:focus-visible) .preview .preview-phone {
-    transform: translateX(-50%) translateY(-8px);
-  }
-
   .project-tile:hover .preview .preview-shot {
-    transform: scale(1.025);
+    transform: scale(1.035);
   }
 
   .project-tile:hover .preview .preview-open,
@@ -1729,8 +1600,6 @@ body {
   .footer-top,
   .footer-top svg,
   .preview,
-  .preview-browser,
-  .preview-phone,
   .preview-shot,
   .preview-open,
   .project-title-link,
