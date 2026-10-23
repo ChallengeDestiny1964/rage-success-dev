@@ -243,10 +243,15 @@ const registry: Record<string, Tech> = {
 
 const fallback = concept(CircleDotIcon, tone.systems);
 
-function Glyph({ icon }: { icon: TechIcon }) {
+function Glyph({ icon, large = false }: { icon: TechIcon; large?: boolean }) {
   if (icon.kind === "brand") {
     return (
-      <svg viewBox="0 0 24 24" className="h-[13px] w-[13px]" fill="currentColor" aria-hidden>
+      <svg
+        viewBox="0 0 24 24"
+        className={large ? "h-[15px] w-[15px]" : "h-[13px] w-[13px]"}
+        fill="currentColor"
+        aria-hidden
+      >
         <path d={icon.icon.path} />
       </svg>
     );
@@ -254,26 +259,48 @@ function Glyph({ icon }: { icon: TechIcon }) {
 
   if (icon.kind === "concept") {
     const Icon = icon.icon;
-    return <Icon className="h-[14px] w-[14px]" strokeWidth={2} aria-hidden />;
+    return (
+      <Icon
+        className={large ? "h-4 w-4" : "h-[14px] w-[14px]"}
+        strokeWidth={2}
+        aria-hidden
+      />
+    );
   }
 
   return (
-    <span className="text-[9.5px] font-bold leading-none tracking-[-0.04em]" aria-hidden>
+    <span
+      className={`${large ? "text-[10.5px]" : "text-[9.5px]"} font-bold leading-none tracking-[-0.04em]`}
+      aria-hidden
+    >
       {icon.text}
     </span>
   );
 }
 
-export function TechChip({ name, index = 0 }: { name: string; index?: number }) {
+export function TechChip({
+  name,
+  index = 0,
+  fill = false,
+}: {
+  name: string;
+  index?: number;
+  /** Stretch to fill a grid cell (skills page). */
+  fill?: boolean;
+}) {
   const tech = registry[name] ?? fallback;
   const style = { "--brand": tech.color, "--i": index } as CSSProperties;
 
   return (
-    <span className="tech-chip" style={style}>
+    <span className={`tech-chip${fill ? " tech-chip-fill" : ""}`} style={style} title={name}>
+      <span className="tech-chip-shine" aria-hidden />
       <span className="tech-chip-icon">
-        <Glyph icon={tech.icon} />
+        <Glyph icon={tech.icon} large={fill} />
       </span>
-      {name}
+      <span className="tech-chip-copy">
+        <span className="tech-chip-label">{name}</span>
+        {fill ? <span className="tech-chip-meta">Ready</span> : null}
+      </span>
     </span>
   );
 }
@@ -282,24 +309,34 @@ export function TechStack({
   items,
   max,
   className = "",
+  layout = "wrap",
 }: {
   items: readonly string[];
   max?: number;
   className?: string;
+  /** `grid` = equal-sized chips (skills). `wrap` = compact fluid chips. */
+  layout?: "wrap" | "grid";
 }) {
   const visible = max ? items.slice(0, max) : items;
   const hidden = items.slice(visible.length);
+  const fill = layout === "grid";
 
   return (
-    <ul className={`flex flex-wrap gap-2 ${className}`} aria-label="Tech stack">
+    <ul
+      className={`${layout === "grid" ? "skill-chip-grid" : "flex flex-wrap gap-2"} ${className}`}
+      aria-label="Tech stack"
+    >
       {visible.map((item, index) => (
-        <li key={item}>
-          <TechChip name={item} index={index} />
+        <li key={item} className={fill ? "min-w-0" : undefined}>
+          <TechChip name={item} index={index} fill={fill} />
         </li>
       ))}
       {hidden.length > 0 ? (
-        <li>
-          <span className="tech-chip tech-chip-more" title={hidden.join(", ")}>
+        <li className={fill ? "min-w-0" : undefined}>
+          <span
+            className={`tech-chip tech-chip-more${fill ? " tech-chip-fill" : ""}`}
+            title={hidden.join(", ")}
+          >
             +{hidden.length}
             <span className="sr-only"> more: {hidden.join(", ")}</span>
           </span>

@@ -17,22 +17,22 @@ type AgentNode = {
 };
 
 const nodes: AgentNode[] = [
-  { id: "orchestrator", x: 240, y: 42, w: 200, name: "Orchestrator", detail: "plan · route · tools", status: "running" },
-  { id: "analyst", x: 84, y: 142, w: 140, name: "Analyst", detail: "fundamentals", status: "done" },
-  { id: "researcher", x: 240, y: 142, w: 140, name: "Researcher", detail: "search · RAG", status: "running" },
-  { id: "risk", x: 396, y: 142, w: 140, name: "Risk", detail: "guardrails", status: "done" },
-  { id: "debate", x: 240, y: 238, w: 200, name: "Debate", detail: "bull vs bear · round 2", status: "running" },
-  { id: "gate", x: 240, y: 322, w: 200, name: "Decision gate", detail: "approve · 0.87 conf.", status: "done", gate: true },
+  { id: "orchestrator", x: 240, y: 48, w: 200, name: "Orchestrator", detail: "plan · route · tools", status: "running" },
+  { id: "analyst", x: 100, y: 148, w: 136, name: "Analyst", detail: "fundamentals", status: "done" },
+  { id: "researcher", x: 240, y: 148, w: 136, name: "Researcher", detail: "search · RAG", status: "running" },
+  { id: "risk", x: 380, y: 148, w: 136, name: "Risk", detail: "guardrails", status: "done" },
+  { id: "debate", x: 240, y: 242, w: 200, name: "Debate", detail: "bull vs bear · round 2", status: "running" },
+  { id: "gate", x: 240, y: 318, w: 200, name: "Decision gate", detail: "approve · 0.87 conf.", status: "done", gate: true },
 ];
 
 const edges = [
-  { d: "M240 62 C240 96 84 88 84 122", dur: 2.6, begin: 0 },
-  { d: "M240 62 L240 122", dur: 2.2, begin: 0.5 },
-  { d: "M240 62 C240 96 396 88 396 122", dur: 2.6, begin: 1 },
-  { d: "M84 162 C84 196 240 186 240 218", dur: 2.6, begin: 0.3 },
-  { d: "M240 162 L240 218", dur: 2.2, begin: 1.2 },
-  { d: "M396 162 C396 196 240 186 240 218", dur: 2.6, begin: 0.8 },
-  { d: "M240 258 L240 302", dur: 1.8, begin: 0.2 },
+  { d: "M240 68 C240 100 100 94 100 128", dur: 2.6, begin: 0 },
+  { d: "M240 68 L240 128", dur: 2.2, begin: 0.5 },
+  { d: "M240 68 C240 100 380 94 380 128", dur: 2.6, begin: 1 },
+  { d: "M100 168 C100 200 240 192 240 222", dur: 2.6, begin: 0.3 },
+  { d: "M240 168 L240 222", dur: 2.2, begin: 1.2 },
+  { d: "M380 168 C380 200 240 192 240 222", dur: 2.6, begin: 0.8 },
+  { d: "M240 262 L240 298", dur: 1.8, begin: 0.2 },
 ];
 
 const trace = [
@@ -100,7 +100,7 @@ function AgentCard({ node }: { node: AgentNode }) {
 
 export function HeroVisual() {
   return (
-    <div className="relative isolate mx-auto w-full max-w-[34rem] lg:mx-0 lg:max-w-none">
+    <div className="relative isolate mx-auto w-full max-w-[34rem] lg:mx-0 lg:max-w-none lg:pl-1">
       <div className="console-glow" aria-hidden />
 
       <div
@@ -209,7 +209,7 @@ export function HeroVisual() {
         </div>
       </div>
 
-      <div className="float-chip absolute -left-14 top-[51%] hidden rounded-xl border border-line bg-white/90 px-3 py-2.5 shadow-[0_18px_40px_-16px_rgba(8,16,24,0.35)] backdrop-blur-md sm:block lg:hidden xl:block">
+      <div className="float-chip absolute -left-3 top-[51%] hidden rounded-xl border border-line bg-white/90 px-3 py-2.5 shadow-[0_18px_40px_-16px_rgba(8,16,24,0.35)] backdrop-blur-md sm:block lg:hidden xl:-left-6 xl:block 2xl:-left-10">
         <p className="mono text-[9px] uppercase tracking-[0.16em] text-muted">Model router</p>
         <div className="mt-2 flex gap-1">
           {["Claude", "GPT-4o", "Llama 3"].map((model, index) => (
@@ -225,7 +225,7 @@ export function HeroVisual() {
         </div>
       </div>
 
-      <div className="float-chip float-chip-delay absolute -right-5 bottom-[7.5rem] hidden items-center gap-3 rounded-xl border border-line bg-white/90 py-2.5 pl-2.5 pr-4 shadow-[0_18px_40px_-16px_rgba(8,16,24,0.35)] backdrop-blur-md sm:flex lg:hidden xl:flex">
+      <div className="float-chip float-chip-delay absolute -right-2 bottom-[7.5rem] hidden items-center gap-3 rounded-xl border border-line bg-white/90 py-2.5 pl-2.5 pr-4 shadow-[0_18px_40px_-16px_rgba(8,16,24,0.35)] backdrop-blur-md sm:flex lg:hidden xl:-right-3 xl:flex">
         <span className="grid h-8 w-8 place-items-center rounded-lg bg-[#1a5f48]/10">
           <svg viewBox="0 0 16 16" className="h-4 w-4" fill="none" aria-hidden>
             <path

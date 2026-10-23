@@ -118,8 +118,6 @@ export const coverCopy = {
   },
   "flutter-folio": {
     tagline: "One codebase that feels <em>native</em> on every device.",
-    // The first callout sits over the screenshot's GitHub button.
-    positions: ["left: 858px; top: 428px", "left: 596px; top: 548px"],
     callouts: [
       ["Layers", "95% shared code", "Desktop · mobile · web"],
       ["MousePointer2", "Adaptive input", "Touch, mouse & keyboard"],

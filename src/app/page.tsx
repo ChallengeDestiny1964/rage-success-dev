@@ -1,5 +1,6 @@
 import { BrainCircuitIcon, BriefcaseIcon, Building2Icon, MapPinIcon } from "lucide-react";
 import Link from "next/link";
+import { BrandName, BrandTitle } from "@/components/BrandLetters";
 import { HeroVisual } from "@/components/HeroVisual";
 import { categoryIcons } from "@/components/projects/categoryIcons";
 import { ProjectTile } from "@/components/projects/ProjectTile";
@@ -19,16 +20,18 @@ const credentials = [
 export default function HomePage() {
   return (
     <>
-      <section className="relative min-h-[calc(100svh-4.5rem)] overflow-hidden">
-        <div className="shell relative grid min-h-[calc(100svh-4.5rem)] content-center items-center gap-12 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8 lg:py-20">
-          <div className="max-w-2xl">
+      <section className="relative min-h-[calc(100svh-4.5rem)] overflow-x-clip">
+        <div className="shell relative grid min-h-[calc(100svh-4.5rem)] content-center items-center gap-14 py-16 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] lg:gap-14 xl:gap-20 lg:py-20">
+          <div className="hero-copy min-w-0 max-w-xl lg:max-w-none lg:pr-2">
             <p className="eyebrow reveal">Senior engineer · available for hire</p>
-            <h1 className="display text-gradient reveal reveal-delay-1 mt-6 text-[clamp(3.4rem,8.5vw,6.4rem)] leading-[0.92]">
-              {site.name}
-            </h1>
-            <p className="display reveal reveal-delay-2 mt-4 text-[clamp(1.6rem,3vw,2.25rem)] leading-tight text-ink-soft">
-              <span className="accent-serif">Senior</span> Full-Stack AI Engineer
-            </p>
+            <BrandName
+              className="hero-brand-name mt-6 text-[clamp(2.85rem,7vw,5.1rem)]"
+              delayMs={80}
+            />
+            <BrandTitle
+              className="mt-5 text-[clamp(1.45rem,2.8vw,2.05rem)]"
+              delayMs={420}
+            />
             <p className="lede reveal reveal-delay-3 mt-6 max-w-xl">{site.tagline}</p>
             <div className="reveal reveal-delay-4 mt-9 flex flex-wrap gap-3">
               <Link href="/projects" className="btn btn-primary">
@@ -43,7 +46,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="reveal reveal-delay-5 mx-auto w-full max-w-md lg:mx-0 lg:max-w-none">
+          <div className="hero-visual reveal reveal-delay-5 mx-auto w-full min-w-0 max-w-md px-1 sm:px-2 lg:mx-0 lg:max-w-none lg:px-0">
             <HeroVisual />
           </div>
         </div>
@@ -122,9 +125,9 @@ export default function HomePage() {
           })}
         </ul>
 
-        <div className="mt-12 grid gap-x-8 gap-y-14 md:grid-cols-2 lg:gap-x-10">
-          {featuredProjects.map((project) => (
-            <ProjectTile key={project.slug} project={project} />
+        <div className="mt-12 grid auto-rows-fr gap-x-7 gap-y-8 md:grid-cols-2 lg:gap-x-8 lg:gap-y-10">
+          {featuredProjects.map((project, i) => (
+            <ProjectTile key={project.slug} project={project} index={i} />
           ))}
         </div>
       </section>

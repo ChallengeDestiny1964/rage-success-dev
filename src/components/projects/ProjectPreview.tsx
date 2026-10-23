@@ -11,8 +11,9 @@ export function ProjectPreview({ project, eager = false }: { project: Project; e
         fill
         sizes="(min-width: 1280px) 580px, (min-width: 768px) 46vw, 92vw"
         preload={eager}
-        className="preview-shot object-cover"
+        className="preview-shot object-cover object-top"
       />
+      <span className="preview-shine" aria-hidden />
       <span className="preview-open" aria-hidden>
         Open live
         <ArrowUpRightIcon className="h-3.5 w-3.5" strokeWidth={2.5} />

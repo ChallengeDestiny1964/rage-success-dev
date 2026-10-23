@@ -65,11 +65,12 @@ export default function ProjectsPage() {
                   </span>
                 </div>
 
-                <div className="mt-10 grid gap-x-8 gap-y-14 md:grid-cols-2 lg:gap-x-10">
+                <div className="mt-10 grid auto-rows-fr gap-x-7 gap-y-8 md:grid-cols-2 lg:gap-x-8 lg:gap-y-10">
                   {items.map((project, i) => (
                     <ProjectTile
                       key={project.slug}
                       project={project}
+                      index={i}
                       eager={sectionIndex === 0 && i < 2}
                     />
                   ))}

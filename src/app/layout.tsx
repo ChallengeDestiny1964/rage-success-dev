@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import localFont from "next/font/local";
+import { cookies } from "next/headers";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { SiteBackground } from "@/components/SiteBackground";
+import { SiteIntro } from "@/components/SiteIntro";
 import { site } from "@/data/site";
 import "./globals.css";
 
@@ -43,7 +45,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const cookieStore = await cookies();
+  const skipIntro = cookieStore.get("mr-intro-v2")?.value === "1";
+
   return (
     <html
       lang="en"
@@ -51,6 +56,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${GeistSans.variable} ${GeistMono.variable} ${serif.variable} h-full`}
     >
       <body className="flex min-h-full flex-col antialiased">
+        <SiteIntro skip={skipIntro} />
         <SiteBackground />
         <Navbar />
         <main className="flex-1">{children}</main>
