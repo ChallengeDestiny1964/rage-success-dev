@@ -1,9 +1,11 @@
 export const skillGroups = [
   {
+    id: "languages",
     title: "Languages",
     items: ["TypeScript", "JavaScript", "Python", "Java", "Go"],
   },
   {
+    id: "frontend",
     title: "Frontend",
     items: [
       "React",
@@ -16,6 +18,7 @@ export const skillGroups = [
     ],
   },
   {
+    id: "backend",
     title: "Backend & APIs",
     items: [
       "Node.js",
@@ -28,6 +31,7 @@ export const skillGroups = [
     ],
   },
   {
+    id: "data-cloud",
     title: "Data & Cloud",
     items: [
       "PostgreSQL",
@@ -40,6 +44,7 @@ export const skillGroups = [
     ],
   },
   {
+    id: "ai-llms",
     title: "AI & LLMs",
     items: [
       "LLM Apps",
@@ -52,6 +57,7 @@ export const skillGroups = [
     ],
   },
   {
+    id: "delivery",
     title: "Delivery",
     items: [
       "Docker",
